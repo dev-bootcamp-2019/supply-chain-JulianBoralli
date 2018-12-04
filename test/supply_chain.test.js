@@ -22,13 +22,14 @@ contract('SupplyChain', function(accounts) {
         })
 */
         const name = "book"
-	const tx = await supplyChain.addItem(name, price, {from: alice})
-	if (tx.logs[0].event === "ForSale") {
-		sku = tx.logs[0].args.sku.toString(10)
-		eventEmitted = true
-	}
+        const tx = await supplyChain.addItem(name, price, {from: alice})
+        if (tx.logs[0].event === "ForSale") {
+          sku = tx.logs[0].args.sku.toString(10)
+          eventEmitted = true
+        }
 
         const result = await supplyChain.fetchItem.call(sku)
+        console.log(result)
 
         assert.equal(result[0], name, 'the name of the last added item does not match the expected value')
         assert.equal(result[2].toString(10), price, 'the price of the last added item does not match the expected value')
